@@ -1,0 +1,77 @@
+import React ,{useState, useEffect}from "react";
+import memories from "../../images/memories.png";
+import { AppBar, Typography,Toolbar,Button,Avatar } from "@mui/material";
+import { Style } from "./navbarstyle";
+import { Link,  useLocation, useNavigate} from "react-router-dom";
+import { useDispatch } from "react-redux";
+import decode from 'jwt-decode'
+
+// import { useSelector } from "react-redux";
+const NavBar = () => {
+
+    //  const userdata=useSelector((state)=>state.auth)
+  const [user, setuser]=useState(JSON.parse(localStorage.getItem('profi')));
+  const location=useLocation();
+  const dispatch=useDispatch();
+  const navigate=useNavigate();
+  
+  
+  
+
+  useEffect(()=>
+  {
+    const token= user?.token;
+    if(token)
+    {
+      const decodedToken=decode(token);
+      if(decodedToken.exp * 1000 < new Date().getTime()) logoutHandler();
+    }
+      
+      setuser(JSON.parse(localStorage.getItem('profi')));
+      console.log(user);
+  },[location]);
+
+  const logoutHandler =()=>
+  {
+    dispatch({type:'LOGOUT'});
+    setuser(null);
+    navigate('/');
+       
+  }
+
+   
+   
+  return (
+    <AppBar style={Style.appbar} position="static" color="inherit">
+      <div  style={Style.brandContainer}>
+        <Typography  style={Style.typo} variant="h2" align="center">
+          Memories
+        </Typography>
+        <img
+          style={{ marginLeft: "15px" }}
+          src={memories}
+          alt="memories"
+          height="40"
+        />
+      </div>
+      <Toolbar style={Style.toolbar}>
+        {
+            user?(
+                <div style={Style.div}>
+                    <Avatar style={Style.purple} alt='test' src={user? user.result?.imageUrl:""}>{user?user.result?.email.charAt(0):null}</Avatar>
+                    <Typography style={Style.userName} variant='h6' >{user?user.result?.name:null}</Typography>
+                    <Button LinkComponent={Link}  to="/" variant="contained" color="secondary"  onClick={logoutHandler}>Logout</Button>
+                </div>
+            ):(
+                <div style={Style.div}>
+                    <Button LinkComponent={Link}  to="/auth"  variant="contained" color="primary">SignIn</Button>
+
+                </div>
+            )
+        }
+      </Toolbar>
+    </AppBar>
+  );
+};
+
+export default NavBar;

@@ -1,0 +1,26 @@
+import axios from "axios";
+
+const API=axios.create({baseURL:'http://localhost:5000'})
+
+API.interceptors.request.use((req)=>
+{
+    if(localStorage.getItem('profi'))
+    {
+        
+        req.headers.Authorization=`Bearer ${JSON.parse(localStorage.getItem('profi')).token}`;
+      
+    }
+   return req;
+   
+})
+
+export const fetchPosts =() => API.get('/post');
+export const createPost =(newpost) => API.post('/post',newpost);
+export const updatePost =(id,updatePost) => API.patch(`/post/${id}`, updatePost);
+export const deletePost =(id) => API.delete(`/post/${id}`);
+
+export const likePost = (id) => API.patch(`/post/${id}/likePost`) ;
+
+export const signin =(formdata) => API.post('/user/signin',formdata);
+export const signup =(formdata) => API.post('/user/signup', formdata);
+
