@@ -7,7 +7,7 @@ import { getPosts } from '../../action/posts';
 
 const Posts=({setCurrentId})=>
 {
-    const posts =useSelector((state)=>state.posts);
+    const {posts} =useSelector((state)=>state.posts);
     const dispatch=useDispatch();
 
     useEffect(()=>
@@ -19,12 +19,12 @@ const Posts=({setCurrentId})=>
 
     // console.log(posts); 
     return(
-       !posts.length? <CircularProgress/>:(
-        <Grid style={Style.gridPosts} container alignItems="stretch" spacing={3}>
+       !posts?.length? <CircularProgress/>:(
+        <Grid style={Style.gridPosts} container alignItems="stretch" spacing={1}>
             {
                 posts.map((post)=>
                 (
-                    <Grid item key={post._id}  xs={12} sm={6}>
+                    <Grid item key={post._id}  xs={12} sm={12} md={6} lg={4}>
                         <Post post={post} setCurrentId={setCurrentId}/>
 
                     </Grid>

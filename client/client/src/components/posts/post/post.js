@@ -35,7 +35,7 @@ const Post=({post,setCurrentId})=>
 
     const dispatch=useDispatch();
     return (
-         <Card style={Style.card}>
+         <Card style={Style.card} raised elevation={6}>
             <CardMedia style={Style.cardMedia} 
             image={post.selectedFile} title={post.title} />
             <div style={Style.divpost}>

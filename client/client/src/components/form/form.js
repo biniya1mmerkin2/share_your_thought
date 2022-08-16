@@ -53,8 +53,8 @@ const Form=({currentId,setCurrentId})=>
   if(!user?.result?.name)
   {
     return(
-    <Paper style={Style.paper}>
-      <Typography variant='h5' textAlign={'center'}> Sign in first to Create Memory in this app</Typography>
+    <Paper style={Style.paper} elevation={6}>
+      <Typography variant='h5' textAlign={'center'}> Sign in first to Share Thought in this app</Typography>
     </Paper>
     )
     
@@ -63,19 +63,9 @@ const Form=({currentId,setCurrentId})=>
   {
     return(
         
-      <Paper style={Style.paper}>
+      <Paper style={Style.paper} elevation={6}>
         <form  style={Style.form} autoComplete='off' noValidate onSubmit={handlesubmit}> 
         <Typography style={Style.typo} variant='h6'>{currentId? "Editing":"Creating"} a Memory</Typography>
-        {/* <TextField 
-       style={Style.textfield}
-        name='creator' 
-        variant='outlined' 
-        label='Creator' 
-        fullWidth
-        value={postData.creator}
-        onChange={(e)=>setPostDat({...postData,creator:e.target.value})}
-        
-        /> */}
         <TextField 
         required
         style={Style.textfield}

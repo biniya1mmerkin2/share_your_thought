@@ -10,13 +10,17 @@ export const Style={
         alignItems: 'center',
         padding: '10px 50px',
         position:'sticky',
+        maxWidth:'100%',
+       
         top:'0',
-        zIndex:'10'
+        zIndex:'10',
+        overflow:'visible'
 
     },
+
     typo:
     {
-        color: 'rgba(0,183,255, 1)',
+        color: ' #46494A ',
         textDecoration: 'none',
 
     },
@@ -28,6 +32,8 @@ export const Style={
     brandContainer: {
         display: 'flex',
         alignItems: 'center',
+        margin:'auto'
+        
     },
     toolbar: {
         display: 'flex',

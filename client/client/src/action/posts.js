@@ -1,11 +1,12 @@
 import * as api from '../api';
-import {FETCH_ALL,CREATE,DELETE,UPDATE,LIKE} from '../constants/constants'
+import {FETCH_ALL,CREATE,DELETE,UPDATE,LIKE,FETCH_BY_SEARCH} from '../constants/constants'
 
 
-export const getPosts =() => async (dispatch) =>
+export const getPosts =(page) => async (dispatch) =>
 {
    try {
-    const {data} = await api.fetchPosts({});
+    const {data} = await api.fetchPosts(page);
+   
 
     dispatch({type: FETCH_ALL, payload:data})
     
@@ -16,14 +17,26 @@ export const getPosts =() => async (dispatch) =>
    }
 }
 
+export const getPostsBySearch=(searchQuery) => async (dispatch) =>
+{
+   try {
+      const {data:{data}}= await api.fetchPostsBySearch(searchQuery);
+      dispatch({type: FETCH_BY_SEARCH , payload:data})
+      console.log(data);
+   } catch (error) {
+      console.log(error)
+   }
+}
+
 export const createPosts =(post)=> async (dispatch) =>
 {
    try {
       const {data}= await api.createPost(post);
+      console.log(data);
       dispatch({type: CREATE , payload:data});
       
    } catch (error) {
-      console.log(error.message)
+      console.log(error)
       
    }
 }
