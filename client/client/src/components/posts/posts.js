@@ -5,19 +5,19 @@ import {Grid ,CircularProgress} from '@mui/material';
 import { Style } from './style';
 import { getPosts } from '../../action/posts';
 
-const Posts=({setCurrentId})=>
+const Posts=({setCurrentId, page})=>
 {
     const {posts} =useSelector((state)=>state.posts);
     const dispatch=useDispatch();
 
     useEffect(()=>
         {
-            dispatch(getPosts({}))
+            dispatch(getPosts(page))
             // console.log('this is the test')
 
         } ,[posts,dispatch]);
 
-    // console.log(posts); 
+    console.log(posts); 
     return(
        !posts?.length? <CircularProgress/>:(
         <Grid style={Style.gridPosts} container alignItems="stretch" spacing={1}>

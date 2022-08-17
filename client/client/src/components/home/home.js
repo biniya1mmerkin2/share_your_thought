@@ -25,9 +25,10 @@ const Home = () => {
 
 
   // useEffect(() => {
-  //   dispatch(getPosts({}));
-  //   console.log('hello');
-  // }, [dispatch])
+  //   dispatch(getPosts(page));
+  //   console.log('this is the page number')
+  //   console.log(page);
+  // }, [page,dispatch])
 
   const searchPost=()=>
   {
@@ -54,7 +55,7 @@ const Home = () => {
       <Container maxWidth="xl">
         <Grid container justifyContent={'space-between'} alignItems="stretch" spacing={3} >
           <Grid item xs={12} sm={6} md={9}>
-            <Posts setCurrentId={setCurrentId} />
+            <Posts setCurrentId={setCurrentId} page={page}/>
 
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
@@ -71,7 +72,7 @@ const Home = () => {
               />
               {/* <Button style={{margin:'10px' }} variant='contained' color='primary' onClick={searchPost}>Search</Button> */}
             </AppBar>
-            <Form currentId={currentId} setCurrentId={setCurrentId} />
+            <Form currentId={currentId} setCurrentId={setCurrentId} page={page} />
             <Paper elevation={6}>
               <PaginationComp page={page}/>
 

@@ -16,7 +16,13 @@ const NavBar = () => {
   const dispatch=useDispatch();
   const navigate=useNavigate();
   
-  
+  const logoutHandler =()=>
+  {
+    dispatch({type:'LOGOUT'});
+    setuser(null);
+    navigate('/');
+       
+  }
   
 
   useEffect(()=>
@@ -32,13 +38,7 @@ const NavBar = () => {
       console.log(user);
   },[location]);
 
-  const logoutHandler =()=>
-  {
-    dispatch({type:'LOGOUT'});
-    setuser(null);
-    navigate('/');
-       
-  }
+  
 
    
    //

@@ -6,10 +6,10 @@ import {createPosts,updatePosts, getPosts} from '../../action/posts';
 import {Style} from './formstyle';
 import { useLocation } from 'react-router';
 
-const Form=({currentId,setCurrentId})=>
+const Form=({currentId,setCurrentId,page})=>
 {
 
-  const post=useSelector((state)=>currentId? state.posts.find((p)=>p._id === currentId):null);
+  const post=useSelector((state)=>currentId? state.posts.posts.find((p)=>p._id === currentId):null);
   const [postData ,setPostDat]=useState({
   title:'',message:'',tags:'',selectedFile:''
   });
@@ -21,7 +21,7 @@ const Form=({currentId,setCurrentId})=>
 
   useEffect(()=>{
      if(post) setPostDat(post);
-     dispatch(getPosts);
+     dispatch(getPosts(page));
      console.log("form test")
   },[post ,dispatch, location])
 
