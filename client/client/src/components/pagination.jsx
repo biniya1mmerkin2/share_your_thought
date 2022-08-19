@@ -11,10 +11,13 @@ import { getPosts } from "../action/posts";
     const dispatch=useDispatch();
     useEffect(()=>
     {
-        if(page) dispatch(getPosts(page))
+        if(page) 
+        {
+            dispatch(getPosts(page))
+        }
         
 
-    },[page])
+    },[page,dispatch])
 
     return(
         
