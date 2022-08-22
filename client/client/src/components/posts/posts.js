@@ -7,15 +7,18 @@ import { getPosts } from '../../action/posts';
 
 const Posts=({setCurrentId, page})=>
 {
-  const { posts } = useSelector((state) => state.posts);
+  const { posts, isLoading } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getPosts(page));
-  }, [posts, dispatch]);
+    // i removed the posts
+  }, [dispatch]);
 
+  console.log(isLoading);
+  // if (!posts.length && !isLoading) return "No Posts";
   //   console.log(posts);
-  return !posts?.length ? (
+  return isLoading ? (
     <CircularProgress />
   ) : (
     <Grid style={Style.gridPosts} container alignItems="stretch" spacing={1}>
