@@ -1,32 +1,68 @@
 import * as api from '../api';
-import {FETCH_ALL,CREATE,DELETE,UPDATE,LIKE} from '../constants/constants'
+import {
+  FETCH_ALL,
+  CREATE,
+  DELETE,
+  UPDATE,
+  LIKE,
+  FETCH_BY_SEARCH,
+  START_LODING,
+  END_LODING,
+  FETCH_POST,
+} from "../constants/constants";
 
+export const getPost = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LODING });
+    const { data } = await api.fetchPost(id);
 
-export const getPosts =() => async (dispatch) =>
-{
-   try {
-    const {data} = await api.fetchPosts({});
-
-    dispatch({type: FETCH_ALL, payload:data})
-    
-   } catch (error) {
-
+    dispatch({ type: FETCH_POST, payload: { post: data } });
+    dispatch({ type: END_LODING });
+  } catch (error) {
     console.log(error);
-    
-   }
-}
+  }
+};
 
-export const createPosts =(post)=> async (dispatch) =>
-{
-   try {
-      const {data}= await api.createPost(post);
-      dispatch({type: CREATE , payload:data});
-      
-   } catch (error) {
-      console.log(error.message)
-      
-   }
-}
+
+export const getPosts = (page) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LODING });
+    const { data } = await api.fetchPosts(page);
+
+    dispatch({ type: FETCH_ALL, payload: data });
+    dispatch({ type: END_LODING });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getPostsBySearch = (searchQuery) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LODING });
+    const {
+      data: { data },
+    } = await api.fetchPostsBySearch(searchQuery);
+
+    dispatch({ type: FETCH_BY_SEARCH, payload: data });
+    dispatch({ type: END_LODING });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const createPosts = (post, navigate) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LODING });
+    const { data } = await api.createPost(post);
+    console.log(data);
+    navigate(`/posts/${data._id}`);
+
+    dispatch({ type: CREATE, payload: data });
+    dispatch({ type: END_LODING });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const updatePosts=(id,updatedData)=> async (dispatch)=>
 {
@@ -34,7 +70,7 @@ export const updatePosts=(id,updatedData)=> async (dispatch)=>
       const {data} = await api.updatePost(id,updatedData);
       dispatch({type: UPDATE, payload:data});
    } catch (error) {
-      console.log(error.message);
+      console.log(error);
    }
 }
 

@@ -6,7 +6,8 @@ export const Style={
     form:{
         display: 'flex',
         flexWrap: 'wrap',
-        justifyContent: 'center'
+        justifyContent: 'center',
+       
     }
     ,
     typo:{

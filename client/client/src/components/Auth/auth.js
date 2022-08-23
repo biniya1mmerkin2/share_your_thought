@@ -67,7 +67,7 @@ const Auth = () => {
           // localStorage.setItem('prof',JSON.stringify(obj));
       
           dispatch({type:'AUTH', data:{result ,token}});
-          navigate('/',{replace:true});
+          navigate('/posts',{replace:true});
   
     } catch (error) {
       console.log(error);
