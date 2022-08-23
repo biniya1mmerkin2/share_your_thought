@@ -1,16 +1,16 @@
-const Style = {
+export const Style = {
   media: {
     borderRadius: "20px",
     objectFit: "cover",
     width: "100%",
-    maxHeight: "600px",
+    maxHeight: "400px",
   },
   card: {
     display: "flex",
     width: "100%",
     // [theme.breakpoints.down("sm")]: {
-    //   flexWrap: "wrap",
-    //   flexDirection: "column",
+    // flexWrap: "wrap",
+    // flexDirection: "column",
     // },
   },
   section: {
@@ -19,7 +19,8 @@ const Style = {
     flex: 1,
   },
   imageSection: {
-    marginLeft: "20px",
+    marginLeft: "10px",
+    // marginTop: "0px",
     // [theme.breakpoints.down("sm")]: {
     //   marginLeft: 0,
     // },
@@ -27,7 +28,7 @@ const Style = {
   recommendedPosts: {
     display: "flex",
     // [theme.breakpoints.down("sm")]: {
-    //   flexDirection: "column",
+    // flexDirection: "column",
     // },
   },
   loadingPaper: {
