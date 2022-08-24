@@ -38,25 +38,24 @@ export const getPosts = (page) => async (dispatch) => {
 
 export const getPostsBySearch = (searchQuery) => async (dispatch) => {
   try {
-    //  dispatch({ type: START_LODING });
+    dispatch({ type: START_LODING });
     const {
       data: { data },
     } = await api.fetchPostsBySearch(searchQuery);
 
     dispatch({ type: FETCH_BY_SEARCH, payload: data });
-    //  dispatch({ type: END_LODING });
-
-    console.log(data);
+    dispatch({ type: END_LODING });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const createPosts = (post) => async (dispatch) => {
+export const createPosts = (post, navigate) => async (dispatch) => {
   try {
     dispatch({ type: START_LODING });
     const { data } = await api.createPost(post);
     console.log(data);
+    navigate(`/posts/${data._id}`);
 
     dispatch({ type: CREATE, payload: data });
     dispatch({ type: END_LODING });

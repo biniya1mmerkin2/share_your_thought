@@ -4,13 +4,13 @@ import Filebase from 'react-file-base64';
 import {useDispatch,useSelector} from 'react-redux';
 import {createPosts,updatePosts, getPosts} from '../../action/posts';
 import {Style} from './formstyle';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from "react-router";
 
-const Form=({currentId,setCurrentId,page})=>
-{
+const Form = ({ currentId, setCurrentId, page }) => {
   const post = useSelector((state) =>
     currentId ? state.posts.posts.find((p) => p._id === currentId) : null
   );
+  const navigate = useNavigate();
   const [postData, setPostDat] = useState({
     title: "",
     message: "",
@@ -36,7 +36,9 @@ const Form=({currentId,setCurrentId,page})=>
       );
       clear();
     } else {
-      dispatch(createPosts({ ...postData, name: user?.result?.name }));
+      dispatch(
+        createPosts({ ...postData, name: user?.result?.name }, navigate)
+      );
       clear();
     }
   };
@@ -135,6 +137,6 @@ const Form=({currentId,setCurrentId,page})=>
       </Paper>
     );
   }
-}
+};
 
 export default Form;

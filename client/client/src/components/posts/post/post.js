@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from "react";
 import {
   Card,
   CardActions,
@@ -18,15 +18,18 @@ import moment from "moment";
 import { useDispatch } from "react-redux";
 import { deletePost, likePost } from "../../../action/posts";
 import { Style } from "../style";
-import { useLocation,useNavigate } from 'react-router';
+import { useLocation, useNavigate } from "react-router";
 
 const Post = ({ post, setCurrentId }) => {
-    const navigate=useNavigate();
+  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("profi"));
-  const openPost=()=>
-  {
-   navigate(`/posts/${post._id}`)
-  }
+  const openPost = () => {
+    navigate(`/posts/${post._id}`);
+  };
+
+  useEffect(() => {
+    <Likes />;
+  }, [post]);
   const Likes = () => {
     if (post.likes.length > 0) {
       return post.likes.find(
@@ -114,7 +117,7 @@ const Post = ({ post, setCurrentId }) => {
           user?.result?._id === post.creator) && (
           <Button
             size="small"
-            color="primary"
+            color="error"
             onClick={() => dispatch(deletePost(post._id))}
           >
             <Delete fontSize="small" />
