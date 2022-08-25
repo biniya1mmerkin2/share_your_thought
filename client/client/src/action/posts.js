@@ -9,6 +9,7 @@ import {
   START_LODING,
   END_LODING,
   FETCH_POST,
+  COMMENT,
 } from "../constants/constants";
 
 export const getPost = (id) => async (dispatch) => {
@@ -22,7 +23,6 @@ export const getPost = (id) => async (dispatch) => {
     console.log(error);
   }
 };
-
 
 export const getPosts = (page) => async (dispatch) => {
   try {
@@ -64,35 +64,43 @@ export const createPosts = (post, navigate) => async (dispatch) => {
   }
 };
 
-export const updatePosts=(id,updatedData)=> async (dispatch)=>
-{
-   try {
-      const {data} = await api.updatePost(id,updatedData);
-      dispatch({type: UPDATE, payload:data});
-   } catch (error) {
-      console.log(error);
-   }
-}
+export const updatePosts = (id, updatedData) => async (dispatch) => {
+  try {
+    const { data } = await api.updatePost(id, updatedData);
+    dispatch({ type: UPDATE, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-export const deletePost=(id)=> async (dispatch)=>
-{
-   try {
-      await api.deletePost(id);
-      dispatch({type: DELETE, payload:id});
-   } catch (error) {
-      console.log(error.message)
-      
-   }
-}
+export const deletePost = (id) => async (dispatch) => {
+  try {
+    await api.deletePost(id);
+    dispatch({ type: DELETE, payload: id });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 export const likePost = (id) => async (dispatch) => {
-   try {
-     const { data } = await api.likePost(id);
-     const da=data;
-     console.log("this is test"+da);
- 
-     dispatch({ type: LIKE, payload: data });
-   } catch (error) {
-     console.log(error.message);
-   }
- };
+  try {
+    const { data } = await api.likePost(id);
+    const da = data;
+    console.log("this is test" + da);
+
+    dispatch({ type: LIKE, payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const commentPost = (value, id) => async (dispatch) => {
+  try {
+    const { data } = await api.commentPost(value, id);
+    console.log(data);
+    dispatch({ type: COMMENT, payload: data });
+    return data.comments;
+  } catch (error) {
+    console.log(error);
+  }
+};

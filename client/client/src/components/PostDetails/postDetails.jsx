@@ -4,6 +4,7 @@ import { useSelector,useDispatch } from "react-redux";
 import moment from "moment";
 import { useParams ,useNavigate} from "react-router";
 import { getPost,getPostsBySearch } from "../../action/posts";
+import CommentSection from "./commentsection";
 import {Style } from './styles'
 
 const PostDetails =()=>
@@ -55,7 +56,7 @@ const PostDetails =()=>
           <Divider style={{ margin: '20px 0' }} />
           <Typography variant="body1"><strong>Realtime Chat - coming soon!</strong></Typography>
           <Divider style={{ margin: '20px 0' }} />
-          <Typography variant="body1"><strong>Comments - coming soon!</strong></Typography>
+          <CommentSection post={post} />
           <Divider style={{ margin: '20px 0' }} />
         </div>
         <div  style={Style.imageSection}>

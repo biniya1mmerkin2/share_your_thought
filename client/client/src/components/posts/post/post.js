@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardActions,
@@ -22,31 +22,53 @@ import { useLocation, useNavigate } from "react-router";
 
 const Post = ({ post, setCurrentId }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("profi"));
   const openPost = () => {
     navigate(`/posts/${post._id}`);
   };
 
-  useEffect(() => {
-    <Likes />;
-  }, [post]);
+  const [likes, setLikes] = useState(post?.likes);
+
+  const userId = user?.result.googleId || user?.result?._id;
+
+  // const hasliked = post.likes.find(
+  //   (like) => like === (user?.result?.googleId || user?.result?._id)
+  // );
+
+  const hasLikedPost = post?.likes?.find((like) => like === userId);
+
+  const handleClick = async () => {
+    dispatch(likePost(post._id));
+    console.log("test click");
+    if (hasLikedPost) {
+      setLikes(post.likes.filter((id) => id !== userId));
+      console.log("this is filter" + likes);
+    } else {
+      setLikes([...post.likes, userId]);
+      console.log(" this is not filter" + likes);
+    }
+  };
+
+  // useEffect(() => {
+  //   // navigate("/");
+  // }, [likes]);
+
   const Likes = () => {
-    if (post.likes.length > 0) {
-      return post.likes.find(
-        (like) => like === (user?.result?.googleId || user?.result?._id)
-      ) ? (
+    if (likes.length > 0) {
+      return likes.find((like) => like === userId) ? (
         <>
           <ThumbUpAlt fontSize="small" />
           &nbsp;
-          {post.likes.length > 2
-            ? `you and ${post.likes.length - 1} others`
-            : `${post.likes.length} ${post.likes.length > 1 ? "likes" : ""}`}
+          {likes.length > 2
+            ? `you and ${likes.length - 1} others`
+            : `${likes.length} ${likes.length > 1 ? "like" : ""}`}
         </>
       ) : (
         <>
           <ThumbUpOffAlt fontSize="small" />
-          &nbsp;{post.likes.length}
-          {post.likes.length === 1 ? "like" : "likes"}{" "}
+          &nbsp;{likes.length}
+          {likes.length === 1 ? "like" : "like"}{" "}
         </>
       );
     }
@@ -59,7 +81,6 @@ const Post = ({ post, setCurrentId }) => {
     );
   };
 
-  const dispatch = useDispatch();
   return (
     <Card style={Style.card} raised elevation={6}>
       <ButtonBase style={Style.cardAction} onClick={openPost}>
@@ -105,9 +126,7 @@ const Post = ({ post, setCurrentId }) => {
           size="small"
           disabled={!user?.result}
           color="primary"
-          onClick={() => {
-            dispatch(likePost(post._id));
-          }}
+          onClick={handleClick}
         >
           <Likes />
 
