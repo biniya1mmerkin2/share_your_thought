@@ -7,6 +7,8 @@ import {
   START_LODING,
   END_LODING,
   FETCH_POST,
+  COMMENT,
+  LIKE,
 } from "../constants/constants";
 const posts = (state = { isLoading: true, posts: [] }, action) => {
   switch (action.type) {
@@ -41,7 +43,21 @@ const posts = (state = { isLoading: true, posts: [] }, action) => {
 
     case CREATE:
       return { ...state, posts: [...state, action.payload] };
-
+    case COMMENT:
+      return {
+        ...state,
+        posts: state.posts.map((post) => {
+          if (post._id === action.payload._id) return action.payload;
+          return post;
+        }),
+      };
+    case LIKE:
+      return {
+        ...state,
+        posts: state.posts.map((post) =>
+          post._id === action.payload._id ? action.payload : post
+        ),
+      };
     default:
       return state;
   }

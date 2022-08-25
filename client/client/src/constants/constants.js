@@ -9,4 +9,5 @@ export const END_LODING = "END_LODING";
 export const FETCH_POST = "FETCH_POST";
 
 export const AUTH='AUTH';
+export const COMMENT = "COMMENT";
 export const LOGOUT='LOGOUT';
