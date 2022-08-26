@@ -43,14 +43,17 @@ const Post = ({ post, setCurrentId }) => {
     console.log("test click");
     if (hasLikedPost) {
       setLikes(post.likes.filter((id) => id !== userId));
+      console.log("this is filter" + likes);
     } else {
       setLikes([...post.likes, userId]);
+      console.log(" this is not filter" + likes);
     }
   };
 
   // useEffect(() => {
-  //   <Likes />;
-  // }, [post]);
+  //   // navigate("/");
+  // }, [likes]);
+
   const Likes = () => {
     if (likes.length > 0) {
       return likes.find((like) => like === userId) ? (
